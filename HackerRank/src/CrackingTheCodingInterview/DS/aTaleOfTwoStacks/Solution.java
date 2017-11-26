@@ -28,29 +28,58 @@ public class Solution {
         Stack<T> newStack = new Stack<T>();
         
         public void enqueue(T data){
-            if(newStack.isEmpty()){
-                newStack.push(data);
-            }
-            else{
-                oldStack.push(data);
-            }
+        	oldStack.push(data);
         }
         
         public T dequeue(){
+        	checkStack();
             T data = newStack.pop();
-            if(newStack.isEmpty()){
-                while(!oldStack.isEmpty()){
-                    newStack.push(oldStack.pop());
-                }
-            }
             return data;
         }
         
         public T peek(){
-            
+        	checkStack();
             return newStack.peek();
         }
         
-       
+        private void checkStack() {
+        	if(newStack.isEmpty()) {
+        		while(!oldStack.isEmpty()){
+                    newStack.push(oldStack.pop());
+                }
+        	}
+        }
+    }
+    
+    
+    public static class MyQueue2<T>{
+    	Stack<T> oldStack = new Stack<T>();
+    	Stack<T> newStack = new Stack<T>();
+    	
+    	public void enqueue(T data){
+    		if(newStack.isEmpty()){
+    			newStack.push(data);
+    		}
+    		else{
+    			oldStack.push(data);
+    		}
+    	}
+    	
+    	public T dequeue(){
+    		T data = newStack.pop();
+    		if(newStack.isEmpty()){
+    			while(!oldStack.isEmpty()){
+    				newStack.push(oldStack.pop());
+    			}
+    		}
+    		return data;
+    	}
+    	
+    	public T peek(){
+    		
+    		return newStack.peek();
+    	}
+    	
+    	
     }
 }
